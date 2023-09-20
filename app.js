@@ -22,6 +22,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.get('/', function(req, res) {
+  res.render('views/index');
+});
+const PORT = process.env.PORT || 3000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
+app.set('port', PORT);
+app.set('env', NODE_ENV);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -36,6 +44,13 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+app.listen(PORT, () => {
+  console.log(
+      `Express Server started on Port ${app.get(
+          'port'
+      )} | Environment : ${app.get('env')}`
+  );
 });
 
 module.exports = app;
