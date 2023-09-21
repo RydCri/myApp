@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var layoutRouter = require('./routes/layout');
+var databaseRouter = require('./routes/database');
 var app = express();
 
 // view engine setup
@@ -21,7 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/layout', layoutRouter)
+app.use('/layout', layoutRouter);
+app.use('/api/v1/database', databaseRouter);
 
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -34,6 +36,7 @@ app.use(function(req,res,next){
     res.status(404).render('404');
 });
 //500 err view
+// NOT WORKING
 app.use(function(req,res,next){
     res.status(500).render('500');
 });
