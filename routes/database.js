@@ -1,22 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var resource = require('../public/data/dummyDB.json')
 
-const fetchResource = () => {
-    let response = {};
-    let options =  {
-        headers: {
-            'Accept': 'application/json'
-        },
-        method: 'GET',
-        body: JSON.stringify(response)
-        };
-    response = fetch('./public/data/dummyDB.json', options);
-    return (response);
-}
 router.get('/', async (req, res) => {
-    // let resource = await fetchResource()
-    // res.send(resource);
-    res.send(`#${(__dirname)}`)
+    res.send(`${(JSON.stringify(resource))}`);
 });
 
 module.exports = router;
