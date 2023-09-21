@@ -1,8 +1,19 @@
 var express = require('express');
 var router = express.Router();
-/* router works, need to access json */
-router.get('/', function(req, res, next) {
-    res.send('/dummyDB.json');
+
+let options =  {
+    headers: {
+        'Accept': 'application/json'
+    },
+    method: 'GET'
+};
+const fetchResource = () => {
+    let response = fetch('/public/data/dummyDB.json', options);
+    return (response);
+}
+router.get('/', async (req, res) => {
+    let resource = await fetchResource
+    res.send(resource);
 });
 
 module.exports = router;
