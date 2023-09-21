@@ -3,9 +3,14 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: cyan;
-  text-shadow: 1px 1px 0 white;
+  text-shadow: 1px 1px 0 darkcyan;
 }
 
 a {
-  color: #00B7FF;
+  color: orange;
+  text-shadow: none!important;
+}
+
+ul a{
+  text-decoration: none;
 }
