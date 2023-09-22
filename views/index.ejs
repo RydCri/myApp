@@ -15,5 +15,25 @@
     <li><a href="/layout">Layout</a></li>
     <li><a href="/asdglsah">None Existent Page</a></li>
 </ul>
+<div id="domAPI"></div>
+<script>
+
+    fetch('/api/v1/database', {
+        method: 'get'
+    }).then(response => response.json()).then(response => {
+        console.log(response)
+        let resource = response.database;
+        let domAPI = document.getElementById('domAPI')
+        let spanAPI = document.createElement('span')
+
+        spanAPI.append(resource)
+        domAPI.append(spanAPI)
+
+
+    }).catch(err => {
+        console.error(err)
+    });
+
+</script>
 </body>
 </html>
