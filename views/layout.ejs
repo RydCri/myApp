@@ -11,5 +11,27 @@
 <body>
 <h1>This is the Layout view page</h1>
 <a href="/">Back</a>
+<script>
+    //Example API fetch
+    const fetchResource = async (url) => {
+        return await fetch(`${url}`, {
+                // mode: 'no-cors',
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                },
+            },
+        ).then(response => {
+            response.json().then(data => ({
+                data: data,
+                status: response.status,
+
+            },console.log(response.status),
+                console.log(data)))
+        })
+    }
+
+    fetchResource('/api/v1/database');
+</script>
 </body>
 </html>
