@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var layoutRouter = require('./routes/layout');
 var databaseRouter = require('./routes/database');
+var categoriesRouter = require('./routes/categories');
+
 var app = express();
 
 // view engine setup
@@ -24,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/layout', layoutRouter);
 app.use('/api/v1/database', databaseRouter);
+app.use('/api/v1/coins/categories', categoriesRouter)
 
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
