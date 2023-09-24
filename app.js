@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var layoutRouter = require('./routes/layout');
 var databaseRouter = require('./routes/database');
 var categoriesRouter = require('./routes/categories');
+const createHttpError = require("http-errors");
 
 var app = express();
 
@@ -39,9 +40,26 @@ app.use(function(req,res,next){
     res.status(404).render('404');
 });
 //500 err view
-// NOT WORKING
-app.use(function(req,res,next){
-    res.status(500).render('500');
+
+// app.use(function(req,res,next){
+//     res.status(500).render('500');
+// });
+
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('500', {
+        message: err.message,
+        error: {}
+    });
 });
 
 app.listen(PORT, () => {
