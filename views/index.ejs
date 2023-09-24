@@ -34,6 +34,23 @@
         console.error(err)
     });
 
+    fetch('/api/v1/coins/categories', {
+        method: 'get'
+    }).then(response => response.json()).then(response => {
+        console.log(response[0])
+        let resource = response[0];
+        let domAPI = document.getElementById('domAPI');
+        let spanAPI = document.createElement('span');
+        let content = "";
+        spanAPI.append(resource.name)
+        spanAPI.append((resource.market_cap).toLocaleString())
+
+        domAPI.append(spanAPI)
+
+
+    }).catch(err => {
+        console.error(err)
+    });
 </script>
 </body>
 </html>
