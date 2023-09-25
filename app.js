@@ -57,7 +57,7 @@ app.post("/send", (req, res) => {
             data[property] = fields[property].toString();
         });
 
-        //2. You can configure the object however you want
+        //2.
         const mail = {
             from: data.name,
             to: process.env.EMAIL,
