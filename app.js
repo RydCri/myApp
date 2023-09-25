@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var nodemailer = require('nodemailer');
+const multiparty = require("multiparty");
+require("dotenv").config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -36,15 +38,51 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 app.set('port', PORT);
 app.set('env', NODE_ENV);
 
+const transporter = nodemailer.createTransport({
+    host: "smtp.live.com", //your email provider
+    port: 587,
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASS,
+    },
+});
+
+app.post("/send", (req, res) => {
+    //1.
+    let form = new multiparty.Form();
+    let data = {};
+    form.parse(req, function (err, fields) {
+        console.log(fields);
+        Object.keys(fields).forEach(function (property) {
+            data[property] = fields[property].toString();
+        });
+
+        //2. You can configure the object however you want
+        const mail = {
+            from: data.name,
+            to: process.env.EMAIL,
+            subject: data.subject,
+            text: `${data.name} <${data.email}> \n${data.message}`,
+        };
+
+        //3.
+        transporter.sendMail(mail, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send("Something went wrong.");
+            } else {
+                res.status(200).send("Email successfully sent to recipient!");
+            }
+        });
+    });
+});
+
+
 //404 err view
 app.use(function(req,res,next){
     res.status(404).render('404');
 });
-//500 err view
 
-// app.use(function(req,res,next){
-//     res.status(500).render('500');
-// });
 
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
