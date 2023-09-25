@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 router.get('/', function(req, res) {
-  res.render('index');
+  //Authorized user
+  //placeholder
+  let user = "Jimbo"
+  res.render('index',{user});
 });
 
 module.exports = router;
