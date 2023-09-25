@@ -11,6 +11,18 @@
 <body>
 <h1>This is the Layout view page</h1>
 <a href="/">Back</a>
+
+<form id="contact-form" action="/send" method="post" enctype ="multipart/form-data">
+    <label for="senderName">Your Name</label><br>
+    <input name="senderName" type="text">
+    <hr>
+    <label for="senderEmail">Email</label><br>
+    <input name="senderEmail" type="email">
+    <hr>
+    <label for="w3review">Message</label><br>
+    <textarea name="senderMsg" rows="4" cols="50"></textarea>
+    <input type="submit">
+</form>
 <script>
     //Example API fetch
     const fetchResource = async (url) => {
