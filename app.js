@@ -10,11 +10,15 @@ var upload = multer();
 var session = require('express-session');
 require("dotenv").config();
 
+//Route handlers
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var layoutRouter = require('./routes/layout');
 var databaseRouter = require('./routes/database');
 var categoriesRouter = require('./routes/categories');
+var signupRouter = require('./routes/signup');
+
+//error testing
 const createHttpError = require("http-errors");
 
 var app = express();
@@ -29,10 +33,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//paths
+//Paths
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/layout', layoutRouter);
+app.use('/signup', signupRouter)
 //API
 app.use('/api/v1/database', databaseRouter);
 app.use('/api/v1/coins/categories', categoriesRouter)
