@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var nodemailer = require('nodemailer');
 const multiparty = require("multiparty");
+var multer = require('multer');
+var upload = multer();
+var session = require('express-session');
 require("dotenv").config();
 
 var indexRouter = require('./routes/index');
@@ -26,20 +29,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//paths
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/layout', layoutRouter);
+//API
 app.use('/api/v1/database', databaseRouter);
 app.use('/api/v1/coins/categories', categoriesRouter)
 
+//Port
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 app.set('port', PORT);
 app.set('env', NODE_ENV);
 
+//Nodemailer
 const transporter = nodemailer.createTransport({
-    host: "smtp.live.com", //your email provider
+    host: "smtp.live.com", //your email provider (hotmail)
     port: 587,
     auth: {
         user: process.env.EMAIL,
@@ -76,7 +83,7 @@ app.post("/send", (req, res) => {
         });
     });
 });
-
+//Nodemailer end
 
 //404 err view
 app.use(function(req,res,next){
